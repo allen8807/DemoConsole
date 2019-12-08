@@ -12,30 +12,31 @@ import java.util.List;
 public class PrimeNumberList {
     private static Long mMaxNumber = 2L;//该质数列表为该数字以下的质数
     private static List<Long> mPrimeNumbers = new ArrayList<>();
+
     static {
         mPrimeNumbers.add(2L);
     }
 
     //为防止并发，这里加同步锁
-    public synchronized static List<Long>  calcPrimeNumbers(Long maxNumber){
+    public synchronized static List<Long> calcPrimeNumbers(Long maxNumber) {
         List<Long> primeNumbers = new ArrayList<>();
         //如果小于已经计算的值
-        if(maxNumber <= mMaxNumber){
+        if (maxNumber <= mMaxNumber) {
             for (Long p :
                     mPrimeNumbers) {
-                if (p < maxNumber){
+                if (p < maxNumber) {
                     primeNumbers.add(p);
                 }
             }
             return primeNumbers;
         }
         //如果不小于则计算，从已经有的数字开始计算
-        for(Long i = mMaxNumber; i<=maxNumber; i++){
+        for (Long i = mMaxNumber; i <= maxNumber; i++) {
             boolean res = checkPrimeNumberWhenCalc(i);
-            if(res){
+            if (res) {
                 mPrimeNumbers.add(i);
-                System.out.print(i);
-                System.out.println(" the " + mPrimeNumbers.size()+"th");
+//                System.out.print(i);
+//                System.out.println(" the " + mPrimeNumbers.size()+"th");
             }
         }
         //更新静态变量
